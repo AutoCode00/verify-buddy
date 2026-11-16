@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // Base path: "/" on a custom domain, "/<repo>/" on a github.io project page. Restores routes sent here by 404.html (?r=).
+  (function () {
+    var l = location;
+    var seg = l.hostname.endsWith('github.io') ? l.pathname.split('/')[1] : '';
+    window.VB_BASE = seg ? '/' + seg + '/' : '/';
+    document.write('<base href="' + window.VB_BASE + '">');
+    var p = new URLSearchParams(l.search);
+    if (p.has('r')) {
+      var r = p.get('r'); p.delete('r');
+      var q = p.toString();
+      history.replaceState(null, '', window.VB_BASE + r + (q ? '?' + q : '') + l.hash);
+    }
+  })();
+</script>
+<title>Verify Buddy — verify BOT Chain contracts completely visually</title>
+<meta name="description" content="Drop your Solidity, paste your address. Verify Buddy reads the bytecode, finds the exact compiler settings in your browser, and fills the BOT Chain explorer form for you.">
+<meta property="og:title" content="Verify Buddy — verify contracts completely visually">
+<meta property="og:description" content="Verify your BOT Chain contract in minutes, not hours. Exact compiler settings found by matching your source to the deployed bytecode.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#121212">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/DrawSVGPlugin.min.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<div class="preview-bar" id="previewBar" hidden></div>
+<header class="nav" id="nav">
+  <a class="brand" href="./" data-link aria-label="Verify Buddy home"><span id="brandMark"></span><span>Verify Buddy</span></a>
+  <nav class="nav-links" id="navLinks" aria-label="Main">
+    <a href="./#how" data-link>How it works</a>
+    <a href="./#features" data-link>Features</a>
+    <a href="./#compare" data-link>Compare</a>
+    <a href="./#faq" data-link>FAQ</a>
+  </nav>
+  <div class="nav-right">
+    <button class="wallet-pill" id="walletBtn" type="button" aria-label="Connect wallet"><span class="lbl">Connect wallet</span></button>
+    <a class="btn btn-primary btn-sm" href="app" data-link>Verify my contract <span id="navChev"></span></a>
+    <button class="nav-menu" id="navMenu" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"></button>
+  </div>
+</header>
+<main id="view" tabindex="-1"></main>
+<footer class="footer" id="footer"></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="assets/main.js"></script>
+</body>
+</html>
